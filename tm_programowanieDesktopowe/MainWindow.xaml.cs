@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,36 +21,34 @@ namespace tm_programowanieDesktopowe
     /// </summary>
     public partial class MainWindow : Window
     {
-        public string VLogin { get; set; }
-        public string VPassword { get; set; }
+        public string vLogin { get; set; }
+        public string vPassword { get; set; }
         public string TxValue { get; set; }
+
         public int My_int_value { get; set; }
+        public ObservableCollection<int> My_colection { get; set; }
         public MainWindow()
         {
-
-
             InitializeComponent();
+            this.My_colection = new ObservableCollection<int>();
             DataContext = this;
-
-
         }
-        private void Btn_login(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Twój Login to: " + this.VLogin);
-        }
+
 
         private void Btn_add(object sender, RoutedEventArgs e)
         {
             if (validate_number(this.TxValue))
             {
-                MessageBox.Show("Twoja Wartosc to:" + this.My_int_value);
+                this.My_colection.Add(this.My_int_value);
             }
         }
+
         private bool validate_number(string tekst)
         {
-            var isNumber = int.TryParse(tekst, out int number);
+            var isNumber = int.TryParse(tekst, out var number);
+            this.My_int_value = number;
             return isNumber;
         }
-
     }
-}
+
+  }
